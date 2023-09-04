@@ -1,0 +1,21 @@
+# Makefile
+
+SRC = sort.c
+TARGET = sort
+
+all: $(TARGET)
+
+$(TARGET): $(SRC)
+	gcc -E -o $(TARGET).i $(SRC)
+	gcc -S -m32 -o $(TARGET)-32.s $(SRC)
+	gcc -S -m64 -o $(TARGET)-64.s $(SRC)
+	gcc -c -o $(TARGET).o $(SRC)
+	gcc -o $(TARGET) $(SRC)
+	clang -E -o $(TARGET)-clang.i $(SRC)
+	clang -S -m32 -o $(TARGET)-32-clang.s $(SRC)
+	clang -S -m64 -o $(TARGET)-64-clang.s $(SRC)
+	clang -c -o $(TARGET)-clang.o $(SRC)
+	clang -o $(TARGET)-clang $(SRC)
+
+clean:
+	rm -f $(TARGET) $(TARGET).i $(TARGET)-32.s $(TARGET)-64.s $(TARGET).o $(TARGET)-clang.i $(TARGET)-32-clang.s $(TARGET)-64-clang.s $(TARGET)-clang.o $(TARGET)-clang
